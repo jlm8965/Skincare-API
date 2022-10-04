@@ -98,22 +98,22 @@ app.get("/skincare", (req, res) => {
 })
 
 //POST request
-//create route -> gives the ability to create new fruits
+//create route -> gives the ability to create new skincare products 
 app.post("/skincare", (req, res) => {
     //here we'll get something called a request body
     //inside this function, that will be referred to as req.body
-    //we'll use the mongoose model method `create` to make a new fruit
+    //we'll use the mongoose model method `create` to make a new skincare product
     Skincare.create(req.body)
         .then(skincare => {
-            //send the user a '201 created' response, along w/ the new fruit
+            //send the user a '201 created' response, along w/ the new skincare product
             res.status(201).json({skincare: skincare.toObject()})
         })
         .catch(error => console.log(error))
 })
 
 ///PUT request
-//update route -> updates a specific fruit
-app.put("/fruits/:id", (req, res) => {
+//update route -> updates a specific skincare product
+app.put("/skincare/:id", (req, res) => {
     console.log("I hit the update route", req.params.id)
     const id = req.params.id
 
@@ -124,8 +124,8 @@ app.put("/fruits/:id", (req, res) => {
     // 2.) request body
     // 3.) whether the info is new
     Fruit.findByIdAndUpdate(id, req.body, {new:true})
-        .then(fruit => {
-            console.log('the fruit from update', fruit)
+        .then(skincare => {
+            console.log('the skincare product from update', fruit)
             //update success is called '204 - no content'
             res.sendStatus(204)
         })
@@ -133,10 +133,10 @@ app.put("/fruits/:id", (req, res) => {
 })
 
 ////DELETE request
-app.delete("/fruits/:id", (req, res) => {
+app.delete("/skincare/:id", (req, res) => {
     //grab the id from the request
     const id = req.params.id
-    //find and delete the fruit
+    //find and delete the skincare product
     Fruit.findByIdAndRemove(id)
          //send a 204 if successful
         .then(fruit => {
@@ -149,14 +149,14 @@ app.delete("/fruits/:id", (req, res) => {
 
 //SHOW request
 //read route -> finds and displays a single resource
-app.get("/fruits/:id", (req, res) => {
+app.get("/skincare/:id", (req, res) => {
     //grab id from the request
     const id = req.params.id
-    //find and show the fruit
-    Fruit.findById(id)
+    //find and show the skincare product
+    Skincare.findById(id)
     //send a 204 if successful
-    .then(fruit => {
-        res.json({fruit: fruit})
+    .then(skincare => {
+        res.json({skincare: skincare})
     })
     //send the error if not
     .catch(err => res.json(err))
