@@ -41,7 +41,7 @@ router.get("/seed", (req, res) => {
 
 //GET REQUEST FROM EXPRESS APP OBJECT
 //index route -> shows all instances of a document in the db
-app.get("/skincare", (req, res) => {
+router.get("/skincare", (req, res) => {
     //in our index route, we want to use MONGOOSE model methods to get our data. This interacts with the database. 
     //.find returns an array of the objects
     Skincare.find({}) 
@@ -55,7 +55,7 @@ app.get("/skincare", (req, res) => {
 
 //POST request
 //create route -> gives the ability to create new skincare products 
-app.post("/skincare", (req, res) => {
+router.post("/skincare", (req, res) => {
     //here we'll get something called a request body
     //inside this function, that will be referred to as req.body
     //we'll use the mongoose model method `create` to make a new skincare product
@@ -69,7 +69,7 @@ app.post("/skincare", (req, res) => {
 
 ///PUT request
 //update route -> updates a specific skincare product
-app.put("/skincare/:id", (req, res) => {
+router.put("/skincare/:id", (req, res) => {
     console.log("I hit the update route", req.params.id)
     const id = req.params.id
 
@@ -89,7 +89,7 @@ app.put("/skincare/:id", (req, res) => {
 })
 
 ////DELETE request
-app.delete("/skincare/:id", (req, res) => {
+router.delete("/skincare/:id", (req, res) => {
     //grab the id from the request
     const id = req.params.id
     //find and delete the skincare product
@@ -105,7 +105,7 @@ app.delete("/skincare/:id", (req, res) => {
 
 //SHOW request
 //read route -> finds and displays a single resource
-app.get("/skincare/:id", (req, res) => {
+router.get("/skincare/:id", (req, res) => {
     //grab id from the request
     const id = req.params.id
     //find and show the skincare product

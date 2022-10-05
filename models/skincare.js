@@ -34,7 +34,7 @@ const skincareSchema = new Schema({
 //calling the model method
 //the model method takes two arguments: the first is what we wil call our model
 //the second is what we will use to build the model 
-const Fruit = model("Skincare", skincareSchema)
+const Skincare = model("Skincare", skincareSchema)
 
 
 //////////////////////////////////////////////
