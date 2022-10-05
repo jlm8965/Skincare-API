@@ -42,7 +42,7 @@ app.get("/", (req, res) => {
 // here is where we register our routes, this is how server.js knows to send the appropriate request to the appropriate route and send the correct response
 // app.use, when we register a route, needs two arguments
 // the first, is the base url endpoint, the second is the file to use
-app.use('/skincares', SkincareRouter)
+app.use('/skincare', SkincareRouter)
 app.use('/users', UserRouter)
 
 /////////////////////////////////////////////
