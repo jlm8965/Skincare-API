@@ -1,5 +1,5 @@
 #DATABASE_URL is where your local db lives
 
-DATABASE_URL=mongodb://127.0.0.1:27017/fullStackFruits
+DATABASE_URL=mongodb://127.0.0.1:27017/fullStackSkincare
 #this is the port we'll use to run the app (and eventually see this in the browser)
 PORT=3000
