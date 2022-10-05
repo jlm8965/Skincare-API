@@ -1,5 +1,10 @@
 #DATABASE_URL is where your local db lives
 
-DATABASE_URL=mongodb://127.0.0.1:27017/fullStackSkincare
+DATABASE_URL=mongodb://127.0.0.1:27017/skincare_API
 #this is the port we'll use to run the app (and eventually see this in the browser)
 PORT=3000
+
+
+#secret, is a super top secret code
+#this allows for the creation of a session and is required by the express session middleware
+SECRET=obsessed

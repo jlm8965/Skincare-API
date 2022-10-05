@@ -3,7 +3,7 @@
 ///////////////////////////////////////////////
 
 //import mongoose again
-const mongoose = require("mongoose") 
+const mongoose = require('./connection') 
 
 //we're going to pull the Schema and model from mongoose
 //we'll use a syntax called "destructuring"
