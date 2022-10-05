@@ -13,7 +13,7 @@ const db = mongoose.connection
 
 db.on('open', () => {
     // bring in the array of skincare products
-    const startSkincares = [
+    const startSkincare = [
         { name: "Shiseido Clear Sunscreen Stick", formulation: "chemical", whiteCast: false },
         { name: "Skin Aqua Super Moisture Gel ", formulation: "chemical", whiteCast: false },
         { name: "Biore Aqua Rich Watery Essense", formulation: "chemical", whiteCast: false },
@@ -23,11 +23,11 @@ db.on('open', () => {
 
     // delete all the existing skincare products
     Skincare.remove({})
-        .then(deletedSkincares => {
-            console.log('this is what .remove returns', deletedSkincares)
+        .then(deletedSkincare => {
+            console.log('this is what .remove returns', deletedSkincare)
 
             // create a bunch of new skincare products from startSkincares
-            Skincare.create(startSkincares)
+            Skincare.create(startSkincare)
                 .then(data => {
                     console.log('here are the newly created skincare products', data)
                     // always close connection to the db

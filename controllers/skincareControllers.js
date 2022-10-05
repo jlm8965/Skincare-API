@@ -2,6 +2,7 @@
 // Import Dependencies
 ////////////////////////////////////////
 const express = require("express")
+const Skincare = require("../models/skincare")
 const Fruit = require("../models/skincare")
 
 /////////////////////////////////////////
@@ -19,7 +20,7 @@ const router = express.Router()
 // seed scripts -> they work, and they are best practices
 router.get("/seed", (req, res) => {
     // array of starter skincare products
-    const startSkincares = [
+    const startSkincare = [
         { name: "Shiseido Clear Sunscreen Stick", formulation: "chemical", whiteCast: false },
         { name: "Skin Aqua Super Moisture Gel ", formulation: "chemical", whiteCast: false },
         { name: "Biore Aqua Rich Watery Essense", formulation: "chemical", whiteCast: false },
@@ -28,10 +29,10 @@ router.get("/seed", (req, res) => {
       ]
 
      //Delete every sunscreen in the db
-     Skincare.remove({})
+     Skincare.deleteMany({})
      .then(() => {
          //seed with the starter skincare array
-         Skincare.create(startSkincares)
+         Skincare.create(startSkincare)
              .then(data => {
                  res.json(data)
              })
@@ -41,7 +42,7 @@ router.get("/seed", (req, res) => {
 
 //GET REQUEST FROM EXPRESS APP OBJECT
 //index route -> shows all instances of a document in the db
-router.get("/skincare", (req, res) => {
+router.get("/", (req, res) => {
     //in our index route, we want to use MONGOOSE model methods to get our data. This interacts with the database. 
     //.find returns an array of the objects
     Skincare.find({}) 
@@ -55,7 +56,7 @@ router.get("/skincare", (req, res) => {
 
 //POST request
 //create route -> gives the ability to create new skincare products 
-router.post("/skincare", (req, res) => {
+router.post("/", (req, res) => {
     //here we'll get something called a request body
     //inside this function, that will be referred to as req.body
     //we'll use the mongoose model method `create` to make a new skincare product
@@ -69,7 +70,7 @@ router.post("/skincare", (req, res) => {
 
 ///PUT request
 //update route -> updates a specific skincare product
-router.put("/skincare/:id", (req, res) => {
+router.put("/:id", (req, res) => {
     console.log("I hit the update route", req.params.id)
     const id = req.params.id
 
@@ -81,31 +82,31 @@ router.put("/skincare/:id", (req, res) => {
     // 3.) whether the info is new
     Fruit.findByIdAndUpdate(id, req.body, {new:true})
         .then(skincare => {
-            console.log('the skincare product from update', fruit)
+            console.log('the skincare product from update', skincare)
             //update success is called '204 - no content'
             res.sendStatus(204)
         })
         .catch(err => console.log(err))
 })
 
-////DELETE request
-router.delete("/skincare/:id", (req, res) => {
-    //grab the id from the request
+// DELETE request
+// destroy route -> finds and deletes a single resource(fruit)
+router.delete("/:id", (req, res) => {
+    // grab the id from the request
     const id = req.params.id
-    //find and delete the skincare product
-    Fruit.findByIdAndRemove(id)
-         //send a 204 if successful
-        .then(fruit => {
+    // find and delete the skincare product
+    Skincare.findByIdAndRemove(id)
+        // send a 204 if successful
+        .then(() => {
             res.sendStatus(204)
         })
-        //send the error if not
+        // send the error if not
         .catch(err => res.json(err))
-     
 })
 
 //SHOW request
 //read route -> finds and displays a single resource
-router.get("/skincare/:id", (req, res) => {
+router.get("/:id", (req, res) => {
     //grab id from the request
     const id = req.params.id
     //find and show the skincare product
