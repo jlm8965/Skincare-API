@@ -2,7 +2,7 @@
 // Import Dependencies
 ///////////////////////////////////////
 const mongoose = require('./connection')
-const Fruit = require('./skincare')
+const Skincare = require('./skincare')
 
 
 ///////////////////////////////////////
@@ -26,7 +26,7 @@ db.on('open', () => {
         .then(deletedSkincare => {
             console.log('this is what .remove returns', deletedSkincare)
 
-            // create a bunch of new skincare products from startSkincares
+            // create a bunch of new skincare products from startSkincare
             Skincare.create(startSkincare)
                 .then(data => {
                     console.log('here are the newly created skincare products', data)
