@@ -4,6 +4,7 @@
 
 //import mongoose again
 const mongoose = require('./connection') 
+const User = require('./user')
 
 //we're going to pull the Schema and model from mongoose
 //we'll use a syntax called "destructuring"
@@ -24,9 +25,15 @@ const {Schema, model} = mongoose
 const skincareSchema = new Schema({
     name: String, 
     formulation: String, 
-    whitecast: Boolean
-
-}) 
+    whitecast: Boolean,
+    owner: {
+        //references the type "ObjectId", the ._id of the user
+        type: Schema.Types.ObjectId,
+        //references the mode: 'user'
+        ref: 'User'
+    },
+    comments: [commentSchema]
+}, {timestamps:true}) 
 
 //make the skincare model
 //MODEL MAKES IT HAPPEN 
