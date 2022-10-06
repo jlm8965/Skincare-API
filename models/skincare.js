@@ -16,6 +16,9 @@ const {Schema, model} = mongoose
 //view = the information you're getting back from a request to the server
 //sometimes it's going to be JSON, sometimes HTML in a browser. 
 
+// paste this at the bottom of your dependencies
+const finishSchema = require('./finish')
+
 
 //skincare products schema 
 //making a new instance of the class Schema
@@ -32,7 +35,7 @@ const skincareSchema = new Schema({
         //references the mode: 'user'
         ref: 'User'
     },
-    comments: [commentSchema]
+    finish: [finishSchema]
 }, {timestamps:true}) 
 
 //make the skincare model
