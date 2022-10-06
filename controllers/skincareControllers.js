@@ -75,39 +75,43 @@ router.post('/', (req, res) => {
   })
 
 ///PUT request
-//update route -> updates a specific skincare product
-router.put("/:id", (req, res) => {
-    console.log("I hit the update route", req.params.id)
-    const id = req.params.id
-
-    //for now, we'll use a single mongoose model method, eventually we'll update this (and all) routes and we'll use a different method
-    //res.send("nothing yet, but we're getting there")
-    //find by ID and update needs three arguments: 
-    // 1.) ID
-    // 2.) request body
-    // 3.) whether the info is new
-    Fruit.findByIdAndUpdate(id, req.body, {new:true})
-        .then(skincare => {
-            console.log('the skincare product from update', skincare)
-            //update success is called '204 - no content'
-            res.sendStatus(204)
-        })
-        .catch(err => console.log(err))
+router.put('/:id', (req, res) => {
+	// get the id from the request url
+	const skincareId = req.params.id
+	// tell mongoose to update the fruit
+	Skincare.findById(skincareId)
+    .then(skincare => {
+      if (skincare.owner == req.session.userId) {
+        return skincare.updateOne(req.body)
+      }
+    })
+		// if successful -> send status
+		.then(skincare => {
+			console.log('the updated skincare product', skincare)
+			res.sendStatus(204)
+		})
+		// if an error, display that
+		.catch((error) => res.json(error))
 })
 
-// DELETE request
-// destroy route -> finds and deletes a single resource(fruit)
-router.delete("/:id", (req, res) => {
-    // grab the id from the request
-    const id = req.params.id
-    // find and delete the skincare product
-    Skincare.findByIdAndRemove(id)
-        // send a 204 if successful
-        .then(() => {
-            res.sendStatus(204)
-        })
-        // send the error if not
-        .catch(err => res.json(err))
+// delete route
+router.delete('/:id', (req, res) => {
+  // get the skincare product id
+	const skincareId = req.params.id
+	// delete the skincare product
+	Skincare.findById(skincareId)
+    .then(skincare => {
+      if (skincare.owner == req.session.userId) {
+        return skincare.deleteOne()
+      }
+    })
+		.then(() => {
+			res.sendStatus(204)
+		})
+		.catch((error) => {
+      console.log(error)
+			res.json({ error })
+		})
 })
 
 //SHOW request
