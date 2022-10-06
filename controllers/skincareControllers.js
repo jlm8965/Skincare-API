@@ -54,19 +54,25 @@ router.get("/", (req, res) => {
         .catch(err => console.log(err))
 })
 
-//POST request
-//create route -> gives the ability to create new skincare products 
-router.post("/", (req, res) => {
-    //here we'll get something called a request body
-    //inside this function, that will be referred to as req.body
-    //we'll use the mongoose model method `create` to make a new skincare product
+// create -> POST
+router.post('/', (req, res) => {
+
+    // we're ready for mongoose to do its thing
+    // now that we have user specific fruits, 
+    // we'll add the owner to the fruit from the request body.
+    // Since we've stored the id of the user in the session object, we can use it to set the owner property of the fruit upon creation.
+    req.body.owner = req.session.userId
+    console.log('this is req.body before adding owner', req.body)
     Skincare.create(req.body)
-        .then(skincare => {
-            //send the user a '201 created' response, along w/ the new skincare product
-            res.status(201).json({skincare: skincare.toObject()})
-        })
-        .catch(error => console.log(error))
-})
+      .then((skincare) => {
+        console.log('this was returned from create', skincare)
+        res.status(201).json({ skincare: skincare.toObject() })
+      })
+      .catch((err) => {
+        console.log(err)
+        res.json({ err })
+      })
+  })
 
 ///PUT request
 //update route -> updates a specific skincare product
