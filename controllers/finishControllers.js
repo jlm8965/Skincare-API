@@ -77,6 +77,29 @@ router.delete('/delete/:skincareId/:finishId', (req, res) => {
         })
 })
 
+
+// show route
+router.get('/:id', (req, res) => {
+    // first, we need to get the id
+    const skincareId = req.params.id
+    // then we can find a skincare product by its id
+    Skincare.findById(skincareId)
+      .populate('finish.author')
+      // once found, we can render a view with the data
+      .then((skincare) => {
+        console.log('the skincare product we got\n', skincare)
+        const username = req.session.username
+        const loggedIn = req.session.loggedIn
+        const userId = req.session.userId
+        // res.render('skincare/show', { skincare, username, loggedIn, userId })
+        res.status(200).json({ skincare: skincare.toObject() })
+      })
+      // if there is an error, show that instead
+      .catch((err) => {
+        console.log(err)
+        res.json({ err })
+      })
+  })
 ////////////////////////////////////////////
 // Export the Router
 ////////////////////////////////////////////
