@@ -1,53 +1,40 @@
-//////////////////////////////////////////////
-/// Our schme and model for the skincare resource
-///////////////////////////////////////////////
-
-//import mongoose again
-const mongoose = require('./connection') 
+////////////////////////////////////////////////////////////
+// Our schema and model for the skincare resource
+///////////////////////////////////////////////////////////
+// this is the old mongoose import
+// const mongoose = require("mongoose") // import mongoose
+const mongoose = require('./connection')
 const User = require('./user')
 
-//we're going to pull the Schema and model from mongoose
-//we'll use a syntax called "destructuring"
-//pulling Schema (which is a class) and a model (which is a function) out of mongoose
-//you can use a class like a function
+// here we'll import our commentSchema
+const commentSchema = require('./comment')
 
-const {Schema, model} = mongoose
+// we're going to pull the Schema and model from mongoose
+// we'll use a syntax called "destructuring"
+const { Schema, model } = mongoose
 
-//view = the information you're getting back from a request to the server
-//sometimes it's going to be JSON, sometimes HTML in a browser. 
-
-// paste this at the bottom of your dependencies
-const finishSchema = require('./comment')
-
-
-//skincare products schema 
-//making a new instance of the class Schema
-//passing in an object as an argument
-//our database is going to hold a collection of skincare products documents
-//SCHEMA SETS THE RULES 
+// fruits schema
 const skincareSchema = new Schema({
-    name: String, 
-    formulation: String, 
-    whitecast: Boolean,
+    name: String,
+    color: String,
+    readyToEat: Boolean,
     owner: {
-        //references the type "ObjectId", the ._id of the user
+        // here we can refer to an objectId
+        // by declaring that as the type
         type: Schema.Types.ObjectId,
-        //references the mode: 'user'
+        // this line, tells us to refer to the User model
         ref: 'User'
     },
-    finish: [finishSchema]
-}, {timestamps:true}) 
+    comments: [commentSchema]
+}, { timestamps: true })
 
-//make the skincare model
-//MODEL MAKES IT HAPPEN 
-//turning schema into a model
-//calling the model method
-//the model method takes two arguments: the first is what we wil call our model
-//the second is what we will use to build the model 
+// make the skincare model
+// the model method takes two args
+// the first is what we will call our model
+// the second is what we will use to build the model
 const Skincare = model("Skincare", skincareSchema)
 
-
-//////////////////////////////////////////////
-/// Export the model
-///////////////////////////////////////////////
+//////////////////////////////////////////////////
+// Export our model
+//////////////////////////////////////////////////
 module.exports = Skincare
