@@ -17,7 +17,7 @@ const {Schema, model} = mongoose
 //sometimes it's going to be JSON, sometimes HTML in a browser. 
 
 // paste this at the bottom of your dependencies
-const finishSchema = require('./finish')
+const finishSchema = require('./comment')
 
 
 //skincare products schema 
