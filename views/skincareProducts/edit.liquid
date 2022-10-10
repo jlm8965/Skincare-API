@@ -1,0 +1,19 @@
+{% layout 'layout.liquid' %}
+{% block content %}
+  <div class="container-sm">
+    <!-- here, we're using method override in order to send a PUT request -->
+    <form action="/skincareProducts/{{ skincare.id }}?_method=PUT" method="POST">
+      <fieldset>
+        <legend>Edit New Skincare Product</legend>
+        <label class="form-label">Name:</label>
+        <input type="text" name="name" placeholder="enter skincare product name" class="form-control" value="{{ skincare.name }}">
+        <label class="form-label">Formulation:</label>
+        <input type="text" name="formulation" placeholder="enter skincare product type" class="form-control" value="{{ skincare.formulation }}">
+        <label class="form-label">Whitecast:
+        </label>
+        <input type="checkbox" name="whiteCast" class="form-check-input" {% if fruit.whiteCast %}checked
+          {% endif %}></fieldset>
+      <input type="submit" class="btn btn-success" value="Edit {{ fruit.name }}">
+    </form>
+  </div>
+{% endblock %}}}}

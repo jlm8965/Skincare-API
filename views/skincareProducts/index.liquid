@@ -1,0 +1,33 @@
+{% layout 'layout.liquid' %}
+{% block content %}
+  <div>
+    <h2 class="display-6">All Skincare Products
+    </h2>
+    <div class="row">
+      {% for skincare in skincareProducts %}
+        <div class="card">
+          <h5 class="card-header">{{skincare.name}}
+          </h5>
+          <div class="card-body">
+            <h5 class="card-title">
+              {% if skincare.whiteCast %}
+                not all suitable for all xomplexions
+              {% else %}
+                suitable for all complexions
+              {% endif %}
+            </h5>
+            <p class="card-text">The name of this
+              {{skincare.name}}
+              is
+              {{skincare.formulation}}
+            </p>
+            <a class="btn btn-info" href="/skincareProducts/{{skincare.id}}">
+              View
+              {{skincare.name}}
+            </a>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+{% endblock %}}}}

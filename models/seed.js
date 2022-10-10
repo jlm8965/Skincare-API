@@ -23,25 +23,25 @@ db.on('open', () => {
 
     // delete all the existing skincare products
     Skincare.remove({})
-        .then(deletedSkincare => {
-            console.log('this is what .remove returns', deletedSkincare)
+        .then(deletedSkincareProducts => {
+            console.log('this is what .remove returns', deletedSkincareProducts)
 
             // create a bunch of new skincare products from startSkincare
-            Skincare.create(startSkincare)
+            Skincare.create(startSkincareProducts)
                 .then(data => {
                     console.log('here are the newly created skincare products', data)
-                    // always close connection to the db
+                    // close that mf
                     db.close()
                 })
                 .catch(error => {
                     console.log(error)
-                    // always close connection to the db
+                    // close that mf
                     db.close()
                 })
         })
         .catch(error => {
             console.log(error)
-            // always close connection to the db
+            // close that mf
             db.close()
         })
 })
