@@ -1,0 +1,37 @@
+{% layout 'layout.liquid' %}
+{% block content %}
+
+    <div class="container-sm">
+        <form action="/skincareProducts" method="POST">
+            <fieldset>
+                <legend>Create New Skincare Product</legend>
+                <label class="form-label">Name: </label>
+                <input
+                    class="form-control"
+                    type="text"
+                    name="name"
+                    placeholder="enter the name of the skincare products"
+                >
+                <label class="form-label">Formulation: </label>
+                <input
+                    class="form-control"
+                    type="formulation"
+                    name="formulation"
+                    placeholder="what formulation is the skincare product?"
+                >
+                <label class="form-label">White Cast: </label>
+                <input
+                    class="form-check-input"
+                    type="checkbox"
+                    name="whiteCast"
+                >
+            </fieldset>
+            <input
+                class="btn btn-success"
+                type="submit"
+                value="Create New Skincare Product"
+            >
+        </form>
+    </div>
+
+{% endblock %}
